@@ -49,33 +49,41 @@ int main() {
 		}
 		else if (GetAsyncKeyState('W')) {
 			moveDirection[0] = UP;
-			for (int i = 0; i < tailLen; i++) {
-				moveDirection[i + 1] = prev;
-				prev = moveDirection[i];
+			if (tailLen != 1) {
+				for (int i = 0; i < tailLen; i++) {
+					moveDirection[i + 1] = prev;
+					prev = moveDirection[i];
+				}
 			}
 			handleMovement(moveDirection);
 		}
 		else if (GetAsyncKeyState('A')) {
 			moveDirection[0] = LEFT;
-			for (int i = 0; i < tailLen; i++) {
-				moveDirection[i + 1] = prev;
-				prev = moveDirection[i];
+			if (tailLen != 1) {
+				for (int i = 0; i < tailLen; i++) {
+					moveDirection[i + 1] = prev;
+					prev = moveDirection[i];
+				}
 			}
 			handleMovement(moveDirection);
 		}
 		else if (GetAsyncKeyState('S')) {
 			moveDirection[0] = DOWN;
-			for (int i = 0; i < tailLen; i++) {
-				moveDirection[i + 1] = prev;
-				prev = moveDirection[i];
+			if (tailLen != 1) {
+				for (int i = 0; i < tailLen; i++) {
+					moveDirection[i + 1] = prev;
+					prev = moveDirection[i];
+				}
 			}
 			handleMovement(moveDirection);
 		}
 		else if (GetAsyncKeyState('D')) {
 			moveDirection[0] = RIGHT;
-			for (int i = 0; i < tailLen; i++) {
-				moveDirection[i + 1] = prev;
-				prev = moveDirection[i];
+			if (tailLen != 1) {
+				for (int i = 0; i < tailLen; i++) {
+					moveDirection[i + 1] = prev;
+					prev = moveDirection[i];
+				}
 			}
 			handleMovement(moveDirection);
 		}
@@ -104,6 +112,7 @@ int main() {
 
 void gameRender() {
 	int i = 0;
+	bool isPlayer = false;
 	while (i < height) {
 		
 		int j = 0;
@@ -112,19 +121,23 @@ void gameRender() {
 			for (int k = 0; k < tailLen; k++) {
 				if (playerPosX[k] == j && playerPosY[k] == i) {
 					std::cout << "o";
-				}
-				if (i == 0 || i == height - 1) {
-					std::cout << '-';
-				}
-				else if (j == fruitCordX && i == fruitCordY) {
-					std::cout << "*";
-				}
-				else if (j == 0 || j == width - 1) {
-					std::cout << "|";
+					isPlayer = true;
 				}
 				else {
-					std::cout << " ";
+					isPlayer = false;
 				}
+			}
+			if (i == 0 || i == height - 1) {
+				std::cout << '-';
+			}
+			else if (j == fruitCordX && i == fruitCordY) {
+				std::cout << "*";
+			}
+			else if (j == 0 || j == width - 1) {
+				std::cout << "|";
+			}
+			else if(!isPlayer){
+				std::cout << " ";
 			}
 
 			j = j + 1;
